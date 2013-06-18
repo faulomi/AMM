@@ -1,9 +1,39 @@
+@(shareForm: Form[ShareRecord])
+
+@import helper.twitterBootstrap._
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>Share your songs !</title>
+    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
   </head>
   <body>
 
+      <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+              <div class="container">
+
+                <a class="brand" href="#">Share your songs !</a>
+
+              </div>
+            </div>
+          </div>
+
+
+  <div class="container-fluid">
+  @helper.form(action = controllers.routes.Application.submit()){
+
+
+
+      @helper.select(shareForm("source"), options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")))
+      @helper.select(shareForm("destination"), options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")))
+      @helper.inputText(shareForm("id"))
+      @helper.select(shareForm("type"), options = Seq[(String, String)](("track", "track")))
+
+      <input type="submit" value="Share"/>
+  }
+
+  </div>
   </body>
 </html>

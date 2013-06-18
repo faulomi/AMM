@@ -11,7 +11,9 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     javaCore,
     javaJdbc,
-    javaEbean
+    javaEbean,
+    "org.webjars" %% "webjars-play" % "2.1.0-2",
+    "org.webjars" % "bootstrap" % "2.3.2"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
