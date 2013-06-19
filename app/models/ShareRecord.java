@@ -1,5 +1,7 @@
 package models;
 
+import play.data.validation.Constraints;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Jérôme
@@ -11,6 +13,7 @@ public class ShareRecord {
 
     public String source;
     public String destination;
+    @Constraints.Required
     public String id;
     public String type;
 }

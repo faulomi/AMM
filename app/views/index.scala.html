@@ -1,6 +1,6 @@
 @(shareForm: Form[ShareRecord])
 
-@import helper.twitterBootstrap._
+
 
 <!DOCTYPE html>
 <html>
@@ -10,30 +10,28 @@
   </head>
   <body>
 
-      <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-              <div class="container">
-
-                <a class="brand" href="#">Share your songs !</a>
-
-              </div>
-            </div>
-          </div>
-
-
-  <div class="container-fluid">
-  @helper.form(action = controllers.routes.Application.submit()){
 
 
 
-      @helper.select(shareForm("source"), options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")))
-      @helper.select(shareForm("destination"), options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")))
-      @helper.inputText(shareForm("id"))
-      @helper.select(shareForm("type"), options = Seq[(String, String)](("track", "track")))
 
-      <input type="submit" value="Share"/>
+
+  @helper.form(action = controllers.routes.Application.submit(), 'class -> "well", 'target ->"_blank"){
+
+
+
+      @helper.select(shareForm("source"), options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")), '_label -> "Source")
+      @helper.select(shareForm("destination"),options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")), '_label -> "Destination")
+      @helper.inputText(shareForm("id"),'_label -> "Track ID", '_help -> "For Deezer, id of the track. For Spotify, the spotify track URI.")
+      @helper.select(shareForm("type"),options = Seq[(String, String)](("track", "track")),'_label -> "Type")
+
+      <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Share</button>
+
+      </div>
+
+
   }
 
-  </div>
+
   </body>
 </html>
