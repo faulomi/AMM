@@ -82,7 +82,7 @@ public enum Provider {
 
             String spotifyUri = root.findPath("tracks").get(0).findValuesAsText("href").get(1);
             String[] uriParts = spotifyUri.split(":");
-            return  "https://play.spotify.com/track" + uriParts[2];
+            return  "https://play.spotify.com/track/" + uriParts[2];
         }
     };
     protected String lookupBaseUrl;
