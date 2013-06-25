@@ -2,8 +2,6 @@ package models;
 
 import org.codehaus.jackson.JsonNode;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Jérôme
@@ -40,7 +38,7 @@ public enum Provider {
         }
 
         @Override
-        public String getTrackUrl(JsonNode root) {
+        public String getTrackUrl(JsonNode root, Track track) {
 
             return root.get("data").get(0).findPath("link").getTextValue();
         }
@@ -78,9 +76,22 @@ public enum Provider {
         }
 
         @Override
-        public String getTrackUrl(JsonNode root) {
+        public String getTrackUrl(JsonNode root, Track track) {
 
-            String spotifyUri = root.findPath("tracks").get(0).findValuesAsText("href").get(1);
+            String spotifyUri = null;
+
+            for(JsonNode resultTrack : root.findPath("tracks")){
+
+
+                String resultTitle = resultTrack.get("name").asText();
+                if(resultTitle.contains(track.title)){
+                    spotifyUri = resultTrack.get("href").asText();
+                    break;
+                }
+
+            }
+            if(spotifyUri == null)
+                return null;
             String[] uriParts = spotifyUri.split(":");
             return  "https://play.spotify.com/track/" + uriParts[2];
         }
@@ -99,5 +110,5 @@ public enum Provider {
 
     public abstract Query buildSearchQuery(Track track);
 
-    public abstract String getTrackUrl(JsonNode root);
+    public abstract String getTrackUrl(JsonNode root, Track track);
 }

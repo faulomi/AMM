@@ -63,7 +63,10 @@ public class Application extends Controller {
                     public Result apply(Response response) throws Throwable {
 
 
-                        return redirect(destinationProvider.getTrackUrl(response.asJson()));
+                        String trackUrl = destinationProvider.getTrackUrl(response.asJson(), track);
+                        if(trackUrl == null)
+                            notFound();
+                        return redirect(trackUrl);
                     }
                 });
             }
