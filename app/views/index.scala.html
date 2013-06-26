@@ -4,66 +4,58 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Share your songs !</title>
+<head>
+    <title> Share your songs ! </title>
     <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
     <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
 
-      <STYLE type="text/css">
-         .hidden {display:none}
-       </STYLE>
 
 
-  </head>
-  <body>
 
-  <script type="text/javascript">
-          $(function() {
+</head>
+<body>
 
-
-          function updateSelects(source, destination){
-          $("select#" + source + " option").removeAttr("disabled").removeClass("hidden");
-          $("select#" + destination + " option").removeAttr("disabled").removeClass("hidden");
-          var currentValue = $("select#" + source +" option:selected").val();
-          var destinationValue = $("select#" + destination + " option[value="+currentValue+"]" ).attr("disabled", "disabled").addClass("hidden");
+    <script type="text/javascript">
 
 
-          }
+
+
+            $(function() {
+        function refreshSelects(source, destination){
+        $("select#"  + destination).prop("selectedIndex",  $("select#" + source).prop("selectedIndex"));
+        }
+        refreshSelects("source", "destination");
         $("select#source").change(function(){
-               updateSelects("source", "destination");
+        refreshSelects("source", "destination");
+        }) ;
+        $("select#destination").change(function(){
+        refreshSelects("destination", "source");
+        }) ;
+            });
 
 
-          })
-          $("select#destination").change(function(){
-                         updateSelects("destination", "source");
 
-
-                    })
-
-
-          });
-  </script>
+    </script>
 
 
 
 
-  @helper.form(action = controllers.routes.Application.submit(), 'class -> "well", 'target ->"_blank"){
+    @helper.form(action = controllers.routes.Application.submit(), 'class -> "well", 'target -> "_blank") {
 
 
+        @helper.select(shareForm("source"), options = Seq[(String, String)](("DEEZER", "Deezer"), ("SPOTIFY", "Spotify")), '_label -> "Source", '_id -> "source")
+        @helper.select(shareForm("destination"), options = Seq[(String, String)](("SPOTIFY", "Spotify"), ("DEEZER", "Deezer")), '_label -> "Destination", '_id -> "destination")
+        @helper.inputText(shareForm("id"), '_label -> "Track ID", '_help -> "For Deezer, id of the track. For Spotify, the spotify track URI.")
+        @helper.select(shareForm("type"), options = Seq[(String, String)](("track", "track")), '_label -> "Type")
 
-      @helper.select(shareForm("source"), options = Seq[(String, String)](("DEEZER","Deezer"), ("SPOTIFY", "Spotify")), '_label -> "Source", '_id -> "source" )
-      @helper.select(shareForm("destination"),options = Seq[(String, String)]( ("SPOTIFY", "Spotify"),("DEEZER","Deezer")), '_label -> "Destination", '_id -> "destination")
-      @helper.inputText(shareForm("id"),'_label -> "Track ID", '_help -> "For Deezer, id of the track. For Spotify, the spotify track URI.")
-      @helper.select(shareForm("type"),options = Seq[(String, String)](("track", "track")),'_label -> "Type")
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"> Share </button>
 
-      <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Share</button>
-
-      </div>
-
-
-  }
+        </div>
 
 
-  </body>
+    }
+
+
+</body>
 </html>

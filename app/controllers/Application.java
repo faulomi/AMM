@@ -23,7 +23,14 @@ public class Application extends Controller {
     static Form<ShareRecord> shareForm = Form.form(ShareRecord.class);
 
 
-    public static Result index() {
+    public static Result index(String source, String id) {
+          if((source != null) && id != null){
+              final ShareRecord record = new ShareRecord();
+              record.id = id;
+              record.source = source.toUpperCase();
+              shareForm = shareForm.fill(record);
+          }
+
         return ok(index.render(shareForm));
 
 

@@ -40,7 +40,18 @@ public enum Provider {
         @Override
         public String getTrackUrl(JsonNode root, Track track) {
 
-            return root.get("data").get(0).findPath("link").getTextValue();
+            String deezerUri = null;
+            for(JsonNode resultTrack : root.get("data")){
+                String resultTitle = resultTrack.get("title").asText();
+                if(resultTitle.contains(track.title)){
+                    deezerUri = resultTrack.get("link").asText();
+                    break;
+                }
+
+            }
+            if(deezerUri == null)
+                return null;
+            return deezerUri;
         }
     },
     SPOTIFY("http://ws.spotify.com/lookup/1/", "http://ws.spotify.com/search/1/") {
