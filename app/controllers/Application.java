@@ -31,7 +31,7 @@ public class Application extends Controller {
               shareForm = shareForm.fill(record);
           }
 
-        return ok(index.render(shareForm));
+        return ok(index.render(shareForm,""));
 
 
     }
@@ -72,8 +72,8 @@ public class Application extends Controller {
 
                         String trackUrl = destinationProvider.getTrackUrl(response.asJson(), track);
                         if(trackUrl == null)
-                            notFound();
-                        return redirect(trackUrl);
+                            return notFound();
+                        return ok(index.render(shareForm, trackUrl));
                     }
                 });
             }
