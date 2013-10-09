@@ -21,13 +21,13 @@
         (window.myBookmarklet = function() {
 
                 if(typeof(dzPlayer) != "undefined"){
-                window.open("http://pc-sg-013:9000?source=DEEZER&id=" + dzPlayer.getCurrentSongInfo().SNG_ID,"Share Music! " );
+                window.open("http://localhost:9000?source=DEEZER&id=" + dzPlayer.getCurrentSongInfo().SNG_ID,"Share Music! " );
                 }
                 else {
                    var $iframe = $("#app-player").contents();
                    var $uri = $("#track-name a",$iframe).attr("href");
                    var $id = $uri.substring($uri.lastIndexOf("/")  + 1);
-                    window.open("http://pc-sg-013:9000?source=SPOTIFY&id=spotify:track:" + $id,"Share Music! " );
+                    window.open("http://localhost:9000?source=SPOTIFY&id=spotify:track:" + $id,"Share Music! " );
                 }
 
 

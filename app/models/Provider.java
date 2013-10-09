@@ -42,8 +42,8 @@ public enum Provider {
 
             String deezerUri = null;
             for(JsonNode resultTrack : root.get("data")){
-                String resultTitle = resultTrack.get("title").asText();
-                if(resultTitle.contains(track.title)){
+                String resultTitle = resultTrack.get("title").asText().replaceAll("[^A-Za-z0-9]", "");
+                if(resultTitle.contains(track.title.replaceAll("[^A-Za-z0-9]", ""))){
                     deezerUri = resultTrack.get("link").asText();
                     break;
                 }
@@ -94,8 +94,8 @@ public enum Provider {
             for(JsonNode resultTrack : root.findPath("tracks")){
 
 
-                String resultTitle = resultTrack.get("name").asText();
-                if(resultTitle.contains(track.title)){
+                String resultTitle = resultTrack.get("name").asText().replaceAll("[^A-Za-z0-9]", " ");
+                if(resultTitle.contains(track.title.replaceAll("[^A-Za-z0-9]", " "))){
                     spotifyUri = resultTrack.get("href").asText();
                     break;
                 }

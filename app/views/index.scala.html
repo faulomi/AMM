@@ -40,7 +40,7 @@
 
 
 
-    @helper.form(action = controllers.routes.Application.submit(), 'class -> "form-inline") {
+    @helper.form(action = controllers.routes.Application.submit(), 'class -> "well") {
 
 
         @helper.select(shareForm("source"), options = Seq[(String, String)](("DEEZER", "Deezer"), ("SPOTIFY", "Spotify")), '_label -> "Source", '_id -> "source")
